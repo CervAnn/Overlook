@@ -1,25 +1,30 @@
 import $ from 'jquery';
-
 import './css/base.scss';
-
 import './images/backpack.svg'
 import './images/dish.svg'
 import './images/door.svg'
 import './images/notepad.svg'
 import './images/profile.svg'
 
-const userData = fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users")
-  .then(data => data.json())
-  .then(data => console.log(data))
-const roomData = fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms")
-  .then(data => data.json())
-  .then(data => console.log(data))
-const bookingsData = fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings")
-  .then(data => data.json())
-  .then(data => console.log(data))
-const roomServiceData = fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices")
-  .then(data => data.json())
-  .then(data => console.log(data))
+import Hotel from './Hotel'
+
+let customerData;
+let bookingsData;
+let roomData;
+let roomServicesData;
+
+fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/users/users")
+.then(response => response.json())
+.then(data => customerData = data.users)
+fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings")
+.then(response => response.json())
+.then(data => bookingsData = data.bookings)
+fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/rooms/rooms")
+.then(response => response.json())
+.then(data => roomData = data.rooms)
+fetch("https://fe-apps.herokuapp.com/api/v1/overlook/1904/room-services/roomServices")
+.then(response => response.json())
+.then(data => roomServicesData = data.roomServices)
 
 let currentDay = new Date();
 let date = currentDay.getDate();
@@ -32,13 +37,16 @@ const today = year + "/" + month + "/" + date
 
 
 $(document).ready(function() {
-  setTimeout(function() {
+setTimeout(function() {
+    const hotel = new Hotel(customerData, bookingsData, roomData, roomServicesData)
+    console.log(hotel.bookingsData)
     $('.splash-page').hide()
     $('.main-page-container').removeAttr('hidden')
-  }, 5000)
-  availableRoomsToday()
-})
+    
+    availableRoomsToday(hotel)
 
-function availableRoomsToday() {
-  console.log(bookingsData.bookings.filter(room => room.date === today))
-}
+    function availableRoomsToday(hotel) {
+        console.log(hotel.bookingsData.filter(item => item.date === today))
+      }
+  }, 2000)
+})
