@@ -9,6 +9,19 @@
   color: white;
 }
 
+.splash-page {
+  font-size: 100px;
+  color: white;
+  display: flex;
+  height: 7em;
+  justify-content: center;
+  align-items: center;
+  .icon {
+    margin: 10px;
+    width: 11%;
+  }
+}
+
 header {
   height: 130px;
   display: flex;

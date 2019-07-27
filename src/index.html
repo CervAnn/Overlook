@@ -1,49 +1,80 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <title>Overlook Hotel Manager</title>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="../css/normalize.scss"> -->
-  </head>
-  <body>
+
+<head>
+  <title>Overlook Hotel Manager</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="../css/normalize.css"> -->
+</head>
+<body>
+  <section class="splash-page">
+      <h1 class="splash-page-loading-text">Overlook</h1>
+      <img class="splash-page-backpack-icon icon" src="./images/backpack.svg" alt="vector of a backpack" />
+  </section>
+  <section class="main-page-container" hidden>
     <header>
-        <h1>Overlook Hotel Manager</h1>
-        <img class="backpack-icon icon" src="./images/backpack.svg" alt="vector of a backpack"/>
+      <h1>Overlook Hotel Manager</h1>
+      <img class="backpack-icon icon" src="./images/backpack.svg" alt="vector of a backpack" />
     </header>
     <navbar>
       <article class="main-text-and-icon">
-        <img class="notepad-icon icon" src="./images/notepad.svg" alt="vector of a notepad and pencil"/>
+        <img class="notepad-icon icon" src="./images/notepad.svg" alt="vector of a notepad and pencil" />
         <h3 class="main-page">Main</h3>
       </article>
       <article class="user-text-and-icon">
-        <img class="user-icon icon" src="./images/profile.svg" alt="vector of a person, circle head, semi-circle body"/>
+        <img class="user-icon icon" src="./images/profile.svg" alt="vector of a person, circle head, semi-circle body" />
         <h3 class="customer-page">Customer</h3>
       </article>
       <article class="rooms-text-and-icon">
-        <img class="doorframe-icon icon" src="./images/door.svg" alt="vector of closed door"/>
+        <img class="doorframe-icon icon" src="./images/door.svg" alt="vector of closed door" />
         <h3 class="rooms-page">Rooms</h3>
       </article>
       <article class="orders-text-and-icon">
-        <img class="plate-icon icon" src="./images/dish.svg" alt="vector of a plate"/>
+        <img class="plate-icon icon" src="./images/dish.svg" alt="vector of a plate" />
         <h3 class="orders-page">Orders</h3>
       </article>
     </navbar>
     <main class="section-container">
       <section class="main-tab">
         <h2>Main</h2>
+        <h3 class="date-today">Today's Date</h3>
+        <p class="total-rooms_today">Total Rooms Available for Todays Date</p>
+        <p class="total-revenue_today">Total Revenue for Today's Date</p>
+        <p class="percent-rooms-occupied_today">Percentage of Rooms Occupied for Today's Date</p>
       </section>
       <section class="rooms-tab">
         <h2>Rooms</h2>
+        <h3 class="most-popular-booking-day">Display Most Popular Booking Date</h3>
+        <p class="least-popular-booking-day">Displat Least Popular Booking Day</p>
+        <p class="all-bookings_current_customer current_customer">All Past & Current Bookings (Specific Customer)</p>
+        <p class="create-booking current_customer specific_day">Create Booking (Specific Customer & Day)</p>
+        <p class="available-rooms_current_customer current_customer">Available Rooms, Filter by Type (Specific Customer &
+          Day)</p>
+        <p class="room-service_current_customer current_customer">Order Room Service, Food Menu (Specific Customer & Day)
+        </p>
 
       </section>
       <section class="customers-tab">
         <h2>Customers</h2>
+        <h3 class="current-customer">Current Customer</h3>
+        <p class="search-customer">Search Customer</p>
+        <p class="create-new-customer">Create New Customer</p>
       </section>
       <section class="orders-tab">
         <h2>Orders</h2>
+        <h3 class="all-orders_today today">Display All Room Service Orders For Today</h3>
+        <p class="all-order_specific_day specific_day">All Room Orders for a Specific Day</p>
+        <p class="money-spent-orders_current_customer current_customer">All Dates and $ for Room Service (Specific
+          Customer)</p>
+        <p class="money-spent-orders_current_customer current_customer specific_day">$ for Room Service (Specific Customer
+          & Day)</p>
+        <p class="money-spent-orders_current_customer current_customer">All Dates and $ for Room Service (Specific
+          Customer)</p>
       </section>
     </main>
     <footer>
     </footer>
-  </body>
+  </section> 
+</body>
+
 </html>
