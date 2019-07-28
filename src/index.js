@@ -49,6 +49,21 @@ $(document).ready(function() {
     $('.all-orders_today').text(`${allOrdersToday()}`)
     $('.most-popular-booking-day').text(`The most popular booking days are ${mostPopularBookingDate()[0]}, ${mostPopularBookingDate()[1]}, and ${mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${leastPopularBookingDate()}.`)
+    console.log(mostPopularOrderingDate())
+
+    $('#room-service-orders').click((e) => {
+      e.preventDefault()
+      let ordersPerDate = roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
+      console.log(ordersPerDate)
+      if (ordersPerDate.length === 0) {
+        return `There are currently no orders for this date.`
+      } else {
+        $('.displayed-room-service-orders').removeAttr('hidden')
+        $('.displayed-room-service-orders').html(ordersPerDate.map(order => {
+          return `<p>UserID: ${order.userID}, Date: ${order.date}, Food: ${order.food}, Cost: ${order.totalCost}</p>`
+        }))
+      }
+    })
 
     function availableRoomsToday() {
       let numOccupiedRooms = bookingsData.filter(item => item.date === today);
@@ -95,7 +110,6 @@ $(document).ready(function() {
         acc[item.date]++
         return acc
       }, {})
-      console.log(bookingDateFrequency)
       let valuesArray = Object.values(bookingDateFrequency).sort((a,b) => b - a);
       return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
     }
@@ -112,6 +126,18 @@ $(document).ready(function() {
       return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
     }
 
+    function mostPopularOrderingDate() {
+      let orderDateFrequency = roomServicesData.reduce((acc, item) => {
+        if (!acc[item.date]) {
+          acc[item.date] = 1
+        }
+        acc[item.date]++
+        return acc
+      }, {})
+      let ordersArray = Object.values(orderDateFrequency).sort((a, b) => b - a);
+      console.log(orderDateFrequency)
+      return Object.keys(orderDateFrequency).filter(date => orderDateFrequency[date] === ordersArray[0]) 
+    }
 
 
 
