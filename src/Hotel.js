@@ -5,6 +5,9 @@ class Hotel {
     this.roomData = roomData;
     this.roomServicesData = roomServicesData;
   }
+  createCustomer() {
+
+  }
 }
 
 export default Hotel;

@@ -13,7 +13,7 @@ describe('Booking', function () {
     expect(Booking).to.be.a('function');
   });
 
-  it('should be an instance of Hotel', () => {
+  it('should be an instance of Booking', () => {
     let booking1 = new Booking()
     expect(booking1).to.be.an.instanceof(Booking);
   });
