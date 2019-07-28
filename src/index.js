@@ -32,8 +32,8 @@ let month = currentDay.getMonth() + 1;
 let year = currentDay.getFullYear();
 if (date < 10) {date = "0" + date}
 if (month < 10) {month = "0" + month}
-// let today = year + "/" + month + "/" + date
-let today = "2019/10/28"
+let today = year + "/" + month + "/" + date
+
 
 
 
@@ -49,18 +49,34 @@ $(document).ready(function() {
     $('.all-orders_today').text(`${allOrdersToday()}`)
     $('.most-popular-booking-day').text(`The most popular booking days are ${mostPopularBookingDate()[0]}, ${mostPopularBookingDate()[1]}, and ${mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${leastPopularBookingDate()}.`)
-    console.log(mostPopularOrderingDate())
 
     $('#room-service-orders').click((e) => {
       e.preventDefault()
       let ordersPerDate = roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
-      console.log(ordersPerDate)
       if (ordersPerDate.length === 0) {
         return `There are currently no orders for this date.`
       } else {
-        $('.displayed-room-service-orders').removeAttr('hidden')
-        $('.displayed-room-service-orders').html(ordersPerDate.map(order => {
-          return `<p>UserID: ${order.userID}, Date: ${order.date}, Food: ${order.food}, Cost: ${order.totalCost}</p>`
+        $('.display-room-service-orders').removeAttr('hidden')
+        $('.display-room-service-orders').html(ordersPerDate.map(order => {
+          return `<p>UserID: ${order.userID}, Date: ${order.date}, Food: ${order.food}, Cost: ${order.totalCost}`
+        }))
+      }
+    })
+
+    $('#vacant-rooms_search-button').click((e) => {
+      e.preventDefault()
+      let occupiedRoomNumPerDate = bookingsData.filter(item => item.date === $('#vacant-rooms_search').val().replace(/-/g, "/"))
+        .map(room => room.roomNumber)
+      console.log("occupiedRoomsPerDate", occupiedRoomNumPerDate)
+      let availableRooms = roomData.filter(room => !occupiedRoomNumPerDate.includes(room.number))
+      console.log("availableRooms", availableRooms)
+      if (availableRooms.length === 0) {
+        return `There are no available for this date.`
+      } else {
+        $('.display-available-rooms').removeAttr('hidden')
+        $('.display-available-rooms').html(availableRooms.map(room => {
+          return `<p>Room Number: ${room.number}, Room Type: ${room.roomType}, Bidet: ${room.bidet}, Bed Size: ${room.bedSize},
+          Number of Beds: ${room.numBeds}, Cost/Night: ${room.costPerNight}`
         }))
       }
     })
@@ -126,18 +142,6 @@ $(document).ready(function() {
       return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
     }
 
-    function mostPopularOrderingDate() {
-      let orderDateFrequency = roomServicesData.reduce((acc, item) => {
-        if (!acc[item.date]) {
-          acc[item.date] = 1
-        }
-        acc[item.date]++
-        return acc
-      }, {})
-      let ordersArray = Object.values(orderDateFrequency).sort((a, b) => b - a);
-      console.log(orderDateFrequency)
-      return Object.keys(orderDateFrequency).filter(date => orderDateFrequency[date] === ordersArray[0]) 
-    }
 
 
 
@@ -150,5 +154,5 @@ $(document).ready(function() {
 
 
 
-  }, 3000)  
+  }, 1000)  
 })
