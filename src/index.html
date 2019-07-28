@@ -64,10 +64,12 @@
         <h2>Orders</h2>
         <h3 class="all-orders_today today">Display All Room Service Orders For Today</h3>
         <p class="all-order_specific_day specific_day">All Room Orders for a Specific Day</p>
-        <form class="room-service-orders">
+        <form class="room-service-orders" id="search-room-service-orders">
             <label for="order-date_search">Search date:</label>
-            <input type="date" id="order-date_search" value="2019-07-27" max="2019-10-31" min="2019-07-23"/>   
+            <input type="date" id="order-date_search" value="2019-07-27" min="2019-07-23" max="2019-10-31"/>
+            <button class="submit-order-date" id="room-service-orders">Submit</button>   
         </form>
+        <article class="displayed-room-service-orders" hidden></article>
         <p class="money-spent-orders_current_customer current_customer">All Dates and $ for Room Service (Specific
           Customer)</p>
         <p class="money-spent-orders_current_customer current_customer specific_day">$ for Room Service (Specific Customer
