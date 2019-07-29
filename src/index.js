@@ -6,8 +6,11 @@ import './images/door.svg'
 import './images/notepad.svg'
 import './images/profile.svg'
 
-import Hotel from './Hotel'
+import Hotel from './Hotel';
 import Customer from './Customer';
+import Booking from './Booking';
+import Order from './Order'
+
 
 let customerData;
 let bookingsData;
@@ -37,14 +40,19 @@ let today = year + "/" + month + "/" + date
 
 $(document).ready(function() {
   setTimeout(function() {
-    let hotel = new Hotel(customerData, bookingsData, roomData, roomServicesData)
+    customerData = customerData
+      .map(user => user = new Customer(user.id, user.name))
+    bookingsData = bookingsData
+      .map(booking => booking = new Booking(booking.userID, booking.date, booking.roomNumber))
+    roomServicesData = roomServicesData
+      .map(order => order = new Order(order.userID, order.date, order.food, order.totalCost))
+    let hotel = new Hotel(customerData, bookingsData, roomData, roomServicesData, today)
     $('.splash-page').hide()
     $('.main-page-container').removeAttr('hidden')
     $('.date-today').text(`${today}`)
-    $('.total-rooms_today').text(`Today, there are ${hotel.availableRoomsToday(today)} rooms available.`)
-    $('.date-today').text(`${today}`)
-    $('.total-revenue_today').text(`The total hotel revenue for today is $${hotel.totalRoomOrderRevenueToday(today)}.`)
-    $('.percent-rooms-occupied_today').text(`The hotel is ${hotel.percentOccupied(today)}% occupied today.`)
+    $('.total-rooms_today').text(`Today, there are ${hotel.availableRoomsToday()} rooms available.`)
+    $('.total-revenue_today').text(`The total hotel revenue for today is $${hotel.totalRoomAndOrderRevenueToday()}.`)
+    $('.percent-rooms-occupied_today').text(`The hotel is ${hotel.percentOccupied()}% occupied today.`)
     $('.all-orders_today').text(`${hotel.allOrdersToday()}`)
     $('.most-popular-booking-day').text(`The most popular booking days are ${hotel.mostPopularBookingDate()[0]}, ${hotel.mostPopularBookingDate()[1]}, and ${hotel.mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${hotel.leastPopularBookingDate()}.`)
@@ -77,6 +85,31 @@ $(document).ready(function() {
         }))
       }
     })
+
+    // console.log(addCustomer())
+
+    // function addCustomer() {
+    //     let id = customerData.length + 1
+    //     let annie = new Customer(customerData.length + 1, "Annie Seymour")
+    //     hotel.customerData.push(annie)
+    //     return hotel.customerData
+    // }
+
+    // console.log(addBooking())
+
+    // function addBooking() {
+    //     let booking = new Booking(101, today, 3)
+    //     hotel.bookingsData.push(booking)
+    //     return hotel.bookingsData
+    // }
+
+    // console.log(addOrder())
+
+    // function addOrder() {
+    //     let order = new Order(101, today, "McNasty Sammich", 5.00)
+    //     hotel.roomServicesData.push(order)
+    //     return hotel.roomServicesData
+    // }
 
   }, 1000)  
 })

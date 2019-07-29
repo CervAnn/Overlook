@@ -1,18 +1,19 @@
 class Hotel {
-  constructor(customerData, bookingsData, roomData, roomServicesData) {
+  constructor(customerData, bookingsData, roomData, roomServicesData, today) {
     this.customerData = customerData;
     this.bookingsData = bookingsData;
     this.roomData = roomData;
     this.roomServicesData = roomServicesData;
+    this.today = today;
   }
 
-  availableRoomsToday(today) {
-    let numOccupiedRooms = this.bookingsData.filter(item => item.date === today);
+  availableRoomsToday() {
+    let numOccupiedRooms = this.bookingsData.filter(item => item.date === this.today);
     return this.roomData.length - numOccupiedRooms.length
   }
 
-  totalRoomRevenueToday(today) {
-    let occupiedRooms = this.bookingsData.filter(item => item.date === today).map(booking => booking.roomNumber)      
+  totalRoomRevenueToday() {
+    let occupiedRooms = this.bookingsData.filter(item => item.date === this.today).map(booking => booking.roomNumber)      
     return occupiedRooms.reduce((acc, num) => {
       this.roomData.forEach(room => {
         if (num === room.number) {
@@ -23,14 +24,17 @@ class Hotel {
     }, 0) 
   }
   
-  totalRoomOrderRevenueToday(today) {
-    let ordersToday = this.roomServicesData.filter(item => item.date === today)
-    let totalOrderEarningsToday = ordersToday.reduce((acc, item) => acc += item.totalCost, 0)
-    return Number.parseFloat(this.totalRoomRevenueToday(today) + totalOrderEarningsToday).toFixed(2)
+  totalOrderRevenueToday() {
+    let ordersToday = this.roomServicesData.filter(item => item.date === this.today)
+    return ordersToday.reduce((acc, item) => acc += item.totalCost, 0)
   }
 
-  percentOccupied(today) {
-    return (this.bookingsData.filter(item => item.date === today).length / this.roomData.length) * 100
+  totalRoomAndOrderRevenueToday() {
+    return Number.parseFloat(this.totalRoomRevenueToday() + this.totalOrderRevenueToday()).toFixed(2)
+  }
+
+  percentOccupied() {
+    return (this.bookingsData.filter(item => item.date === this.today).length / this.roomData.length) * 100
   }
 
   mostPopularBookingDate() {
@@ -57,25 +61,30 @@ class Hotel {
     return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
   }
 
-  allOrdersToday(today) {
-    let ordersToday = this.roomServicesData.filter(item => item.date === today)
-    if (this.roomServicesData.filter(item => item.date === today).length === 0) {
+  allOrdersToday() {
+    let ordersToday = this.roomServicesData.filter(item => item.date === this.today)
+    if (this.roomServicesData.filter(item => item.date === this.today).length === 0) {
       return "There are currently no room service orders."
     } else {
       return `There are currently ${ordersToday.length} orders for room service: ${ordersToday}`
     }
   }
 
-  // searchCustomer(name) {
-  // let inputName = name.toLowerCase();
-  // return customerData.users.find(user => user.name === inputName);
-  // }
+  searchCustomer() {
 
-  createCustomer() {}
+  }
 
-  createBooking() {}
+  createCustomer() {
 
-  createOrder() {}
+  }
+
+  createBooking() {
+
+  }
+
+  createOrder() {
+    
+  }
 }
 
 export default Hotel;
