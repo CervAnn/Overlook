@@ -7,6 +7,7 @@ import './images/notepad.svg'
 import './images/profile.svg'
 
 import Hotel from './Hotel'
+import Customer from './Customer';
 
 let customerData;
 let bookingsData;
@@ -34,25 +35,23 @@ if (date < 10) {date = "0" + date}
 if (month < 10) {month = "0" + month}
 let today = year + "/" + month + "/" + date
 
-
-
-
 $(document).ready(function() {
   setTimeout(function() {
+    let hotel = new Hotel(customerData, bookingsData, roomData, roomServicesData)
     $('.splash-page').hide()
     $('.main-page-container').removeAttr('hidden')
     $('.date-today').text(`${today}`)
-    $('.total-rooms_today').text(`Today, there are ${availableRoomsToday()} rooms available.`)
+    $('.total-rooms_today').text(`Today, there are ${hotel.availableRoomsToday(today)} rooms available.`)
     $('.date-today').text(`${today}`)
-    $('.total-revenue_today').text(`The total hotel revenue for today is $${totalRevenueToday()}.`)
-    $('.percent-rooms-occupied_today').text(`The hotel is ${percentOccupied()}% occupied today.`)
-    $('.all-orders_today').text(`${allOrdersToday()}`)
-    $('.most-popular-booking-day').text(`The most popular booking days are ${mostPopularBookingDate()[0]}, ${mostPopularBookingDate()[1]}, and ${mostPopularBookingDate()[2]}.`)
-    $('.least-popular-booking-day').text(`The day with the most availability is ${leastPopularBookingDate()}.`)
+    $('.total-revenue_today').text(`The total hotel revenue for today is $${hotel.totalRoomOrderRevenueToday(today)}.`)
+    $('.percent-rooms-occupied_today').text(`The hotel is ${hotel.percentOccupied(today)}% occupied today.`)
+    $('.all-orders_today').text(`${hotel.allOrdersToday()}`)
+    $('.most-popular-booking-day').text(`The most popular booking days are ${hotel.mostPopularBookingDate()[0]}, ${hotel.mostPopularBookingDate()[1]}, and ${hotel.mostPopularBookingDate()[2]}.`)
+    $('.least-popular-booking-day').text(`The day with the most availability is ${hotel.leastPopularBookingDate()}.`)
 
     $('#room-service-orders').click((e) => {
       e.preventDefault()
-      let ordersPerDate = roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
+      let ordersPerDate = hotel.roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
       if (ordersPerDate.length === 0) {
         return `There are currently no orders for this date.`
       } else {
@@ -65,11 +64,9 @@ $(document).ready(function() {
 
     $('#vacant-rooms_search-button').click((e) => {
       e.preventDefault()
-      let occupiedRoomNumPerDate = bookingsData.filter(item => item.date === $('#vacant-rooms_search').val().replace(/-/g, "/"))
+      let occupiedRoomNumPerDate = hotel.bookingsData.filter(item => item.date === $('#vacant-rooms_search').val().replace(/-/g, "/"))
         .map(room => room.roomNumber)
-      console.log("occupiedRoomsPerDate", occupiedRoomNumPerDate)
-      let availableRooms = roomData.filter(room => !occupiedRoomNumPerDate.includes(room.number))
-      console.log("availableRooms", availableRooms)
+      let availableRooms = hotel.roomData.filter(room => !occupiedRoomNumPerDate.includes(room.number))
       if (availableRooms.length === 0) {
         return `There are no available for this date.`
       } else {
@@ -80,79 +77,6 @@ $(document).ready(function() {
         }))
       }
     })
-
-    function availableRoomsToday() {
-      let numOccupiedRooms = bookingsData.filter(item => item.date === today);
-      return roomData.length - numOccupiedRooms.length
-    }
-
-    function totalRevenueToday() {
-      let occupiedRooms = bookingsData.filter(item => item.date === today)
-        .map(booking => booking.roomNumber)      
-      let totalRoomEarnings = occupiedRooms.reduce((acc, num) => {
-        roomData.forEach(room => {
-          if (num === room.number) {
-            acc += room.costPerNight
-          }
-        })   
-        return acc
-      }, 0)
-      let ordersToday = roomServicesData.filter(item => item.date === today)
-      let totalOrderEarningsToday = ordersToday.reduce((acc, item) => {
-        acc += item.totalCost
-        return acc
-      }, 0)
-      return Number.parseFloat(totalRoomEarnings + totalOrderEarningsToday).toFixed(2)
-    }
-
-    function percentOccupied() {
-      return (bookingsData.filter(item => item.date === today).length / roomData.length) * 100
-    }
-
-    function allOrdersToday() {
-      let ordersToday = roomServicesData.filter(item => item.date === today)
-      if (roomServicesData.filter(item => item.date === today).length === 0) {
-        return "There are currently no room service orders."
-      } else {
-        return `There are currently ${ordersToday.length} orders for room service: ${ordersToday}`
-      }
-    }
-
-    function mostPopularBookingDate() {
-      let bookingDateFrequency = bookingsData.reduce((acc, item) => {
-        if (!acc[item.date]) {
-          acc[item.date] = 1
-        }
-        acc[item.date]++
-        return acc
-      }, {})
-      let valuesArray = Object.values(bookingDateFrequency).sort((a,b) => b - a);
-      return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
-    }
-
-    function leastPopularBookingDate() {
-      let bookingDateFrequency = bookingsData.reduce((acc, item) => {
-        if (!acc[item.date]) {
-          acc[item.date] = 1
-        }
-        acc[item.date]++
-        return acc
-      }, {})
-      let valuesArray = Object.values(bookingDateFrequency).sort((a, b) => a - b);
-      return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
   }, 1000)  
 })
