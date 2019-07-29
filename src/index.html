@@ -6,10 +6,11 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
   <!-- <link rel="stylesheet" type="text/css" href="../css/normalize.css"> -->
 </head>
+
 <body>
   <section class="splash-page">
-      <h1 class="splash-page-loading-text">Overlook</h1>
-      <img class="splash-page-backpack-icon icon" src="./images/backpack.svg" alt="vector of a backpack" />
+    <h1 class="splash-page-loading-text">Overlook</h1>
+    <img class="splash-page-backpack-icon icon" src="./images/backpack.svg" alt="vector of a backpack" />
   </section>
   <section class="main-page-container" hidden>
     <header>
@@ -22,7 +23,8 @@
         <h3 class="main-page">Main</h3>
       </article>
       <article class="user-text-and-icon">
-        <img class="user-icon icon" src="./images/profile.svg" alt="vector of a person, circle head, semi-circle body" />
+        <img class="user-icon icon" src="./images/profile.svg"
+          alt="vector of a person, circle head, semi-circle body" />
         <h3 class="customer-page">Customer</h3>
       </article>
       <article class="rooms-text-and-icon">
@@ -47,16 +49,18 @@
         <h3 class="most-popular-booking-day">Display Most Popular Booking Date</h3>
         <h3 class="least-popular-booking-day">Display Least Popular Booking Day</h3>
         <form class="room-availability_search" id="search-room-availability">
-            <label for="vacant-rooms_search">Search date:</label>
-            <input type="date" id="vacant-rooms_search" value="2019-07-28" min="2019-07-23" max="2019-10-31"/>
-            <button class="submit-vacancy-search" form="search-room-availability" id="vacant-rooms_search-button">Submit</button>   
+          <label for="vacant-rooms_search">Search date:</label>
+          <input type="date" id="vacant-rooms_search" value="2019-07-28" min="2019-07-23" max="2019-10-31" />
+          <button form="search-room-availability" id="vacant-rooms_search-button">Submit</button>
         </form>
         <article class="display-available-rooms scroll-box" hidden></article>
         <p class="all-bookings_current_customer current_customer">All Past & Current Bookings (Specific Customer)</p>
         <p class="create-booking current_customer specific_day">Create Booking (Specific Customer & Day)</p>
-        <p class="available-rooms_current_customer current_customer">Available Rooms, Filter by Type (Specific Customer &
+        <p class="available-rooms_current_customer current_customer">Available Rooms, Filter by Type (Specific Customer
+          &
           Day)</p>
-        <p class="room-service_current_customer current_customer">Order Room Service, Food Menu (Specific Customer & Day)
+        <p class="room-service_current_customer current_customer">Order Room Service, Food Menu (Specific Customer &
+          Day)
         </p>
 
       </section>
@@ -64,21 +68,27 @@
         <h2>Customers</h2>
         <h3 class="current-customer">Current Customer</h3>
         <p class="search-customer">Search Customer</p>
+        <form id="search-customer">
+          <label for="search-customer"></label>
+          <input type="text" name="search" id="search-all-customers" placeholder="Search customer..."></input>
+          <button id="submit-query" form="search-customer">Submit</button>
+        </form>
         <p class="create-new-customer">Create New Customer</p>
       </section>
       <section class="orders-tab">
         <h2>Orders</h2>
         <h3 class="all-orders_today today">Display All Room Service Orders For Today</h3>
         <p class="all-order_specific_day specific_day">All Room Orders for a Specific Day</p>
-        <form class="room-service-orders" id="search-room-service-orders">
-            <label for="order-date_search">Search date:</label>
-            <input type="date" id="order-date_search" value="2019-07-28" min="2019-07-23" max="2019-10-31"/>
-            <button class="submit-order-date" form="search-room-service-orders" id="room-service-orders">Submit</button>   
+        <form class="room-service-orders">
+          <label for="order-date_search">Search date:</label>
+          <input type="date" id="order-date_search" value="2019-07-28" min="2019-07-23" max="2019-10-31" />
+          <button class="submit-order-date" form="search-room-service-orders" id="room-service-orders">Submit</button>
         </form>
         <article class="display-room-service-orders scroll-box" hidden></article>
         <p class="money-spent-orders_current_customer current_customer">All Dates and $ for Room Service (Specific
           Customer)</p>
-        <p class="money-spent-orders_current_customer current_customer specific_day">$ for Room Service (Specific Customer
+        <p class="money-spent-orders_current_customer current_customer specific_day">$ for Room Service (Specific
+          Customer
           & Day)</p>
         <p class="money-spent-orders_current_customer current_customer">All Dates and $ for Room Service (Specific
           Customer)</p>
@@ -86,7 +96,7 @@
     </main>
     <footer>
     </footer>
-  </section> 
+  </section>
 </body>
 
 </html>

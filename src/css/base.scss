@@ -97,6 +97,21 @@ main {
     width: 100%;
     height: 500px;
     grid-area: customers;
+    input {
+      background-color: white;
+      color: black;
+      height: 40px;
+      width: 35%;
+      font-size: 18px;
+    }
+    button {
+      background-color: white;
+      color: black;
+      height: 30px;
+      width: 15%;
+      border-radius: 15px;
+      font-size: 15px;
+    }
   }
   .orders-tab {
     border: 1px solid white;
@@ -122,11 +137,11 @@ main {
   h3 {
     margin: 5px;
   }
-  .scroll-box {
-    background-color: white;
-    color: black;
-    height: 150px;
-    width: 90%;
-    overflow: auto;
-  }
+  // .scroll-box {
+  //   background-color: white;
+  //   color: black;
+  //   height: 150px;
+  //   width: 90%;
+  //   overflow: auto;
+  // }
 }
