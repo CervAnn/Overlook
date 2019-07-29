@@ -5,7 +5,20 @@ class Hotel {
     this.roomData = roomData;
     this.roomServicesData = roomServicesData;
   }
+
+  searchCustomer() {
+    
+  }
+
   createCustomer() {
+
+  }
+
+  createBooking() {
+
+  }
+
+  createOrder() {
 
   }
 }
