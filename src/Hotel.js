@@ -73,8 +73,13 @@ class Hotel {
     }
   }
 
-  searchCustomer() {
-
+  searchCustomer(item) {
+    let splitItem = item.toUpperCase();
+    return this.customerData.filter(user => {
+      if (user.name.toUpperCase().includes(splitItem)) {
+        return user
+      } 
+    })
   }
 
   createCustomer() {

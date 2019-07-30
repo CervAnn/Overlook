@@ -104,6 +104,22 @@ main {
       width: 35%;
       font-size: 18px;
     }
+    #dropdown_search-names {
+      width: 35%;
+      height: 40px;
+      margin: 0px;
+      border-collapse: collapse;
+      #dropdown-container, #dropdown-customers {
+        border: 0px;
+        background-color: #DEDCC4;
+        color: black;
+        width: 100%;
+      }
+      #dropdown-customers:hover {
+        background-color: #41434b;
+        width: 100%;
+      }
+    }
     button {
       background-color: white;
       color: black;

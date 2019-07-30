@@ -58,6 +58,22 @@ $(document).ready(function() {
     $('.most-popular-booking-day').text(`The most popular booking days are ${hotel.mostPopularBookingDate()[0]}, ${hotel.mostPopularBookingDate()[1]}, and ${hotel.mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${hotel.leastPopularBookingDate()}.`)
 
+    $('#search-all-customers').keyup((e) => {
+      e.preventDefault()
+      let item = $('#search-all-customers').val()
+      if (item === "" || item === " ") {
+        $('#dropdown_search-names').empty()
+      } else if (hotel.searchCustomer(item).length === 0) {
+        $('#dropdown_search-names').removeAttr('hidden')
+        $('#dropdown_search-names_column').html(`<tr id="dropdown-customers"> No customers with this name exist</tr>`)
+      } else {
+        $('#dropdown_search-names').removeAttr('hidden')
+        $('#dropdown_search-names_column').html(hotel.searchCustomer(item).map(user => {
+          return `<tr id="dropdown-container"><td id="dropdown-customers">${user.name}</td></tr>`
+        }))
+      }
+    })
+
     $('#room-service-orders').click((e) => {
       e.preventDefault()
       let ordersPerDate = hotel.roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
@@ -99,8 +115,6 @@ $(document).ready(function() {
       }
     })
 
-    console.log(hotel.mostPopularBookingDate())
-    console.log(hotel.leastPopularBookingDate())
 
     // console.log(addCustomer())
 

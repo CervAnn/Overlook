@@ -79,10 +79,14 @@
         <h2>Customers</h2>
         <h3 class="current-customer">Current Customer</h3>
         <p class="search-customer">Search Customer</p>
-        <form id="search-customer">
+        <form id="search-customer" role="search">
           <label for="search-customer"></label>
-          <input type="text" name="search" id="search-all-customers" placeholder="Search customer..."></input>
-          <button id="submit-query" form="search-customer">Submit</button>
+          <input aria-label="Search through existing customers" type="text" name="search" id="search-all-customers" placeholder="Search customer..."></input>
+          <table id="dropdown_search-names" hidden>
+            <tbody id="dropdown_search-names_column">
+            </tbody>
+          </table>
+          <!-- <button id="submit-query" form="search-customer">Submit</button> -->
         </form>
         <p class="create-new-customer">Create New Customer</p>
       </section>
