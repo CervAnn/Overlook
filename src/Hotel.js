@@ -1,3 +1,7 @@
+import Customer from './Customer'
+// import Booking from './Booking'
+// import Order from './Order'
+
 class Hotel {
   constructor(customerData, bookingsData, roomData, roomServicesData, today) {
     this.customerData = customerData;
@@ -82,9 +86,13 @@ class Hotel {
     })
   }
 
-  createCustomer() {
-
+  createCustomer(name) {
+    let id = this.customerData.length + 1
+    let newCustomer = new Customer(id, name)
+    this.customerData.push(newCustomer)
   }
+
+  
 
   createBooking() {
 
