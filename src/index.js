@@ -79,6 +79,8 @@ $(document).ready(function() {
       let name = $('#create-customer_input').val()
       hotel.createCustomer(name)
       $('#current-customer_name').removeAttr('hidden').text(": " + name)
+      $('.orders-tab, .rooms-tab').hide()
+      $('.orders-tab_customer, .rooms-tab_customer').removeAttr('hidden')
       $('input').val("")
     })
 
@@ -86,6 +88,8 @@ $(document).ready(function() {
       e.preventDefault()
       let name = $('#search-customers_input').val()
       $('#current-customer_name').removeAttr('hidden').text(": " + name)
+        $('.orders-tab, .rooms-tab').hide()
+        $('.orders-tab_customer, .rooms-tab_customer').removeAttr('hidden')
       $('input').val("")
     })
 
