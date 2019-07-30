@@ -92,7 +92,9 @@ class Hotel {
     this.customerData.push(newCustomer)
   }
 
-  
+  displayAllOrdersSpecificDate(date) {
+    return this.roomServicesData.filter(item => item.date === date)
+  }
 
   createBooking() {
 
