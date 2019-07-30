@@ -65,13 +65,19 @@ $(document).ready(function() {
         $('#dropdown_search-names').empty()
       } else if (hotel.searchCustomer(item).length === 0) {
         $('#dropdown_search-names').removeAttr('hidden')
-        $('#dropdown_search-names_column').html(`<tr id="dropdown-customers"> No customers with this name exist</tr>`)
+        $('#dropdown_search-names').html(`<p id="dropdown-customers"> No customers with this name exist</p>`)
       } else {
-        $('#dropdown_search-names').removeAttr('hidden')
-        $('#dropdown_search-names_column').html(hotel.searchCustomer(item).map(user => {
-          return `<tr id="dropdown-container"><td id="dropdown-customers">${user.name}</td></tr>`
+        $('datalist').removeAttr('hidden')
+        $('datalist').html(hotel.searchCustomer(item).map(user => {
+          return `<option value="${user.name}" id="dropdown-customers" hidden></option>`
         }))
       }
+    })
+
+    $('#submit-query').click((e) => {
+      e.preventDefault()
+      let customerName = $('#search-all-customers').val()
+      $('.current-customer').text(customerName)
     })
 
     $('#room-service-orders').click((e) => {
