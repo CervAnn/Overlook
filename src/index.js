@@ -89,14 +89,14 @@ $(document).ready(function() {
       $('input').val("")
     })
 
-    $('#room-service-orders').click((e) => {
+    $('#room-service-orders_button').click((e) => {
       e.preventDefault()
-      let ordersPerDate = hotel.roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
-      if (ordersPerDate.length === 0) {
+      let date = $('#order-date_input').val().replace(/-/g, "/")
+      if (hotel.displayAllOrdersSpecificDate(date).length === 0) {
         return `There are currently no orders for this date.`
       } else {
         $('.current-orders_table').removeAttr('hidden')
-        $('.current-orders_added-rows').html(ordersPerDate.map(order => {
+        $('.current-orders_added-rows').html(hotel.displayAllOrdersSpecificDate(date).map(order => {
           return `
           <tr class="order-item order">
           <td class="order_userID order">${order.userID}</td>
