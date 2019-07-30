@@ -1,6 +1,5 @@
 const bookingsData =
-{
-  bookings: [
+ [
     {
       userID: 4,
       date: "2019/10/19",
@@ -4867,6 +4866,5 @@ const bookingsData =
       roomNumber: 34
     }
   ]
-}
 
 export default bookingsData;

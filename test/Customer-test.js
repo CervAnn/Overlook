@@ -2,9 +2,9 @@ import chai from "chai";
 const expect = chai.expect;
 import Customer from "../src/Customer";
 import customerData from "../sampleData/customerData"
-let randomIndex = Math.floor(Math.random() * (customerData.users.length - 1)) + 1;
-let randomCustomerID = customerData.users.find(user => user.id === randomIndex).id
-let randomCustomerName = customerData.users.find(user => user.id === randomIndex).name
+let randomIndex = Math.floor(Math.random() * (customerData.length - 1)) + 1;
+let randomCustomerID = customerData.find(user => user.id === randomIndex).id
+let randomCustomerName = customerData.find(user => user.id === randomIndex).name
 // import hotel from "../src/Hotel";
 
 describe("Customer", function() {

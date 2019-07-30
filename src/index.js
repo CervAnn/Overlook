@@ -36,7 +36,8 @@ let month = currentDay.getMonth() + 1;
 let year = currentDay.getFullYear();
 if (date < 10) {date = "0" + date}
 if (month < 10) {month = "0" + month}
-let today = year + "/" + month + "/" + date
+// let today = year + "/" + month + "/" + date
+let today = "2019/10/28"
 
 $(document).ready(function() {
   setTimeout(function() {
@@ -63,9 +64,15 @@ $(document).ready(function() {
       if (ordersPerDate.length === 0) {
         return `There are currently no orders for this date.`
       } else {
-        $('.display-room-service-orders').removeAttr('hidden')
-        $('.display-room-service-orders').html(ordersPerDate.map(order => {
-          return `<p>UserID: ${order.userID}, Date: ${order.date}, Food: ${order.food}, Cost: ${order.totalCost}`
+        $('.current-orders_table').removeAttr('hidden')
+        $('.current-orders_added-rows').html(ordersPerDate.map(order => {
+          return `
+          <tr class="order-item order">
+          <td class="order_userID order">${order.userID}</td>
+          <td class="order_date order">${order.date}</td>
+          <td class="order_food order">${order.food}</td>
+          <td class="order_cost order">${order.totalCost}</td>
+          </tr>`
         }))
       }
     })
@@ -78,13 +85,22 @@ $(document).ready(function() {
       if (availableRooms.length === 0) {
         return `There are no available for this date.`
       } else {
-        $('.display-available-rooms').removeAttr('hidden')
-        $('.display-available-rooms').html(availableRooms.map(room => {
-          return `<p>Room Number: ${room.number}, Room Type: ${room.roomType}, Bidet: ${room.bidet}, Bed Size: ${room.bedSize},
-          Number of Beds: ${room.numBeds}, Cost/Night: ${room.costPerNight}`
+        $('.available-rooms_table').removeAttr('hidden')
+        $('.available-rooms_added-row').html(availableRooms.map(room => {
+          return `
+          <tr class="available-rooms">
+            <td class="available-rooms_room-number vacancy">${room.number}</td>
+            <td class="available-rooms_room-type vacancy">${room.roomType}</td>
+            <td class="available-rooms_bidet vacancy">${room.bidet}</td>
+            <td class="available-rooms_num-beds vacancy">${room.numBeds}</td>
+            <td class="available-rooms_cost vacancy">${room.costPerNight}</td>
+        </tr>`
         }))
       }
     })
+
+    console.log(hotel.mostPopularBookingDate())
+    console.log(hotel.leastPopularBookingDate())
 
     // console.log(addCustomer())
 

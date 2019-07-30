@@ -20,17 +20,20 @@ class Hotel {
           acc += room.costPerNight
         }
       })   
-      return acc
+      return Math.round(100 * acc) / 100
     }, 0) 
   }
   
   totalOrderRevenueToday() {
     let ordersToday = this.roomServicesData.filter(item => item.date === this.today)
-    return ordersToday.reduce((acc, item) => acc += item.totalCost, 0)
+    return ordersToday.reduce((acc, item) => {
+      acc += item.totalCost
+      return Math.round(100 * acc) / 100
+    }, 0)
   }
 
   totalRoomAndOrderRevenueToday() {
-    return Number.parseFloat(this.totalRoomRevenueToday() + this.totalOrderRevenueToday()).toFixed(2)
+    return (this.totalRoomRevenueToday() + this.totalOrderRevenueToday())
   }
 
   percentOccupied() {

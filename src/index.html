@@ -53,7 +53,18 @@
           <input type="date" id="vacant-rooms_search" value="2019-07-28" min="2019-07-23" max="2019-10-31" />
           <button form="search-room-availability" id="vacant-rooms_search-button">Submit</button>
         </form>
-        <article class="display-available-rooms scroll-box" hidden></article>
+        <table class="available-rooms_table" hidden>
+          <thead>
+            <tr class="available-rooms_initial-row">
+                <th class="available-rooms_room-number">Room #</th>
+                <th class="available-rooms_room-type">Type</th>
+                <th class="available-rooms_bidet">Bidet</th>
+                <th class="available-rooms_num-beds"># of Beds</th>
+                <th class="available-rooms_cost">Cost</th>
+              </tr>
+          </thead>
+          <tbody class="available-rooms_added-row"></tbody>
+        </table>
         <p class="all-bookings_current_customer current_customer">All Past & Current Bookings (Specific Customer)</p>
         <p class="create-booking current_customer specific_day">Create Booking (Specific Customer & Day)</p>
         <p class="available-rooms_current_customer current_customer">Available Rooms, Filter by Type (Specific Customer
@@ -84,7 +95,17 @@
           <input type="date" id="order-date_search" value="2019-07-28" min="2019-07-23" max="2019-10-31" />
           <button class="submit-order-date" form="search-room-service-orders" id="room-service-orders">Submit</button>
         </form>
-        <article class="display-room-service-orders scroll-box" hidden></article>
+        <table class="current-orders_table" hidden>
+          <thead>
+            <tr class="current-orders_initial-row">
+              <th class="current-orders_userID">Customer ID</th>
+              <th class="current-orders-rooms_date">Date</th>
+              <th class="current-orders_food">Food Order</th>
+              <th class="current-orders_cost">Cost</th>
+            </tr>
+          </thead>
+          <tbody class="current-orders_added-rows"></tbody>
+          </table>
         <p class="money-spent-orders_current_customer current_customer">All Dates and $ for Room Service (Specific
           Customer)</p>
         <p class="money-spent-orders_current_customer current_customer specific_day">$ for Room Service (Specific
