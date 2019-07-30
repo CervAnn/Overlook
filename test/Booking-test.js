@@ -3,10 +3,10 @@ const expect = chai.expect;
 import bookingsData from '../sampleData/bookingsData'
 import Booking from '../src/Booking'
 
-let randomIndex = Math.floor(Math.random() * (bookingsData.bookings.length - 1)) + 1;
-let randomCustomerID = bookingsData.bookings[randomIndex].userID
-let randomDate = bookingsData.bookings[randomIndex].date
-let randomRoomNumber = bookingsData.bookings[randomIndex].roomNumber
+let randomIndex = Math.floor(Math.random() * (bookingsData.length - 1)) + 1;
+let randomCustomerID = bookingsData[randomIndex].userID
+let randomDate = bookingsData[randomIndex].date
+let randomRoomNumber = bookingsData[randomIndex].roomNumber
 
 describe('Booking', function () {
   

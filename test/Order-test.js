@@ -2,11 +2,11 @@ import chai from 'chai';
 const expect = chai.expect;
 import roomServicesData from '../sampleData/roomServicesData'
 import Order from '../src/Order'
-let randomIndex = Math.floor(Math.random() * (roomServicesData.roomServices.length - 1)) + 1;
-let randomCustomerID = roomServicesData.roomServices[randomIndex].userID
-let randomDate = roomServicesData.roomServices[randomIndex].userID
-let randomFood = roomServicesData.roomServices[randomIndex].food
-let randomCost = roomServicesData.roomServices[randomIndex].totalCost
+let randomIndex = Math.floor(Math.random() * (roomServicesData.length - 1)) + 1;
+let randomCustomerID = roomServicesData[randomIndex].userID
+let randomDate = roomServicesData[randomIndex].userID
+let randomFood = roomServicesData[randomIndex].food
+let randomCost = roomServicesData[randomIndex].totalCost
 
 describe('Order', function () {
   

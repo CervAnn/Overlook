@@ -36,7 +36,8 @@ let month = currentDay.getMonth() + 1;
 let year = currentDay.getFullYear();
 if (date < 10) {date = "0" + date}
 if (month < 10) {month = "0" + month}
-let today = year + "/" + month + "/" + date
+// let today = year + "/" + month + "/" + date
+let today = "2019/10/28"
 
 $(document).ready(function() {
   setTimeout(function() {
@@ -57,15 +58,47 @@ $(document).ready(function() {
     $('.most-popular-booking-day').text(`The most popular booking days are ${hotel.mostPopularBookingDate()[0]}, ${hotel.mostPopularBookingDate()[1]}, and ${hotel.mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${hotel.leastPopularBookingDate()}.`)
 
+    $('#search-all-customers').keyup((e) => {
+      e.preventDefault()
+      let item = $('#search-all-customers').val()
+      if (item === "" || item === " ") {
+        $('#dropdown_search-names').empty()
+        $('#current-customer_name').empty()
+        $('.current-customer').empty()
+      } else if (hotel.searchCustomer(item).length === 0) {
+        $('#dropdown_search-names').removeAttr('hidden')
+        $('#dropdown_search-names').html(`<p id="dropdown-customers"> No customers with this name exist</p>`)
+      } else {
+        $('datalist').removeAttr('hidden')
+        $('datalist').html(hotel.searchCustomer(item).map(user => {
+          return `<option value="${user.name}" id="dropdown-customers" hidden></option>`
+        }))
+      }
+    })
+
+    $('#submit-query').click((e) => {
+      e.preventDefault()
+      let customerName = $('#search-all-customers').val()
+      $('.current-customer').removeAttr('hidden')
+      $('.current-customer').text(customerName)
+      $('#current-customer_name').removeAttr('hidden').text(": " + customerName)
+    })
+
     $('#room-service-orders').click((e) => {
       e.preventDefault()
       let ordersPerDate = hotel.roomServicesData.filter(item => item.date === $('#order-date_search').val().replace(/-/g, "/"))
       if (ordersPerDate.length === 0) {
         return `There are currently no orders for this date.`
       } else {
-        $('.display-room-service-orders').removeAttr('hidden')
-        $('.display-room-service-orders').html(ordersPerDate.map(order => {
-          return `<p>UserID: ${order.userID}, Date: ${order.date}, Food: ${order.food}, Cost: ${order.totalCost}`
+        $('.current-orders_table').removeAttr('hidden')
+        $('.current-orders_added-rows').html(ordersPerDate.map(order => {
+          return `
+          <tr class="order-item order">
+          <td class="order_userID order">${order.userID}</td>
+          <td class="order_date order">${order.date}</td>
+          <td class="order_food order">${order.food}</td>
+          <td class="order_cost order">${order.totalCost}</td>
+          </tr>`
         }))
       }
     })
@@ -78,13 +111,20 @@ $(document).ready(function() {
       if (availableRooms.length === 0) {
         return `There are no available for this date.`
       } else {
-        $('.display-available-rooms').removeAttr('hidden')
-        $('.display-available-rooms').html(availableRooms.map(room => {
-          return `<p>Room Number: ${room.number}, Room Type: ${room.roomType}, Bidet: ${room.bidet}, Bed Size: ${room.bedSize},
-          Number of Beds: ${room.numBeds}, Cost/Night: ${room.costPerNight}`
+        $('.available-rooms_table').removeAttr('hidden')
+        $('.available-rooms_added-row').html(availableRooms.map(room => {
+          return `
+          <tr class="available-rooms">
+            <td class="available-rooms_room-number vacancy">${room.number}</td>
+            <td class="available-rooms_room-type vacancy">${room.roomType}</td>
+            <td class="available-rooms_bidet vacancy">${room.bidet}</td>
+            <td class="available-rooms_num-beds vacancy">${room.numBeds}</td>
+            <td class="available-rooms_cost vacancy">${room.costPerNight}</td>
+        </tr>`
         }))
       }
     })
+
 
     // console.log(addCustomer())
 
