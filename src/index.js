@@ -63,6 +63,8 @@ $(document).ready(function() {
       let item = $('#search-all-customers').val()
       if (item === "" || item === " ") {
         $('#dropdown_search-names').empty()
+        $('#current-customer_name').empty()
+        $('.current-customer').empty()
       } else if (hotel.searchCustomer(item).length === 0) {
         $('#dropdown_search-names').removeAttr('hidden')
         $('#dropdown_search-names').html(`<p id="dropdown-customers"> No customers with this name exist</p>`)
@@ -77,7 +79,9 @@ $(document).ready(function() {
     $('#submit-query').click((e) => {
       e.preventDefault()
       let customerName = $('#search-all-customers').val()
+      $('.current-customer').removeAttr('hidden')
       $('.current-customer').text(customerName)
+      $('#current-customer_name').removeAttr('hidden').text(": " + customerName)
     })
 
     $('#room-service-orders').click((e) => {
