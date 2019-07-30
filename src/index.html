@@ -77,19 +77,21 @@
       </section>
       <section class="customers-tab">
         <h2>Customers</h2>
-        <h3 class="current-customer" hidden>Current Customer</h3>
-        <p class="search-customer">Search Customer</p>
-        <form id="search-customer" role="search">
-          <!-- <label for="search-customer"></label> -->
-          <input aria-label="Search through existing customers" list="dropdown_search-names" type="text" name="search" id="search-all-customers" placeholder="Search customer..."></input>
+        <article id="customer-forms_container">
+        <form aria-label="Form to search through existing customers" id="search-customers_form" role="search">
+          <label for="name">Search Existing Customers</label>
+          <input aria-label="Type in name to search through existing customers" list="dropdown_search-names" 
+          type="text" name="search" id="search-customers_input" placeholder="Search Customers..." required></input>
           <datalist id="dropdown_search-names"></datalist>
-          <!-- <table id="dropdown_search-names" hidden>
-            <tbody id="dropdown_search-names_column">
-            </tbody>
-          </table> -->
-          <button id="submit-query" form="search-customer">Submit</button>
+          <button id="search-customers_button" form="search-customers_form">Search</button>
         </form>
-        <p class="create-new-customer">Create New Customer</p>
+        <form aria-label="Create a new customer" role="form" id="create-customer_form">
+          <label for="name">Add New Customer:</label>
+          <input aria-label="Type in name to create customer" name="name" type="text"
+          placeholder="New Customer Name..." id="create-customer_input" requried></input>
+          <button id="create-customer_button" form="create-customer_form">Add New Customer</button>
+        </form>
+      </article>
       </section>
       <section class="orders-tab">
         <h2>Orders</h2>

@@ -58,13 +58,11 @@ $(document).ready(function() {
     $('.most-popular-booking-day').text(`The most popular booking days are ${hotel.mostPopularBookingDate()[0]}, ${hotel.mostPopularBookingDate()[1]}, and ${hotel.mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${hotel.leastPopularBookingDate()}.`)
 
-    $('#search-all-customers').keyup((e) => {
+    $('#search-customers_input').keyup((e) => {
       e.preventDefault()
-      let item = $('#search-all-customers').val()
+      let item = $('#search-customers_input').val()
       if (item === "" || item === " ") {
         $('#dropdown_search-names').empty()
-        $('#current-customer_name').empty()
-        $('.current-customer').empty()
       } else if (hotel.searchCustomer(item).length === 0) {
         $('#dropdown_search-names').removeAttr('hidden')
         $('#dropdown_search-names').html(`<p id="dropdown-customers"> No customers with this name exist</p>`)
@@ -76,12 +74,19 @@ $(document).ready(function() {
       }
     })
 
-    $('#submit-query').click((e) => {
+    $('#create-customer_button').click((e) => {
       e.preventDefault()
-      let customerName = $('#search-all-customers').val()
-      $('.current-customer').removeAttr('hidden')
-      $('.current-customer').text(customerName)
-      $('#current-customer_name').removeAttr('hidden').text(": " + customerName)
+      let name = $('#create-customer_input').val()
+      hotel.createCustomer(name)
+      $('#current-customer_name').removeAttr('hidden').text(": " + name)
+      $('input').val("")
+    })
+
+    $('#search-customers_button').click((e) => {
+      e.preventDefault()
+      let name = $('#search-customers_input').val()
+      $('#current-customer_name').removeAttr('hidden').text(": " + name)
+      $('input').val("")
     })
 
     $('#room-service-orders').click((e) => {
