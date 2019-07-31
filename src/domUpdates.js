@@ -21,10 +21,12 @@ const domUpdates = {
     }
   },
 
-  displayAllOrdersSpecificDate(date, data) {
+  displayAllOrdersSpecificDate(data) {
     if (data.length === 0) {
-      $('cost-breakdown_customer').text(`There are currently no orders for ${date}.`)
+      $('.room-service-orders-all').text("There are no orders listed for this date.")
+      $('.current-orders_table').prop("hidden", true)
     } else {
+      $('.room-service-orders-all').text("")
       $('.current-orders_table').removeAttr('hidden')
       $('.current-orders_added-rows').html(data.map(order => {
         return `
@@ -39,12 +41,13 @@ const domUpdates = {
   },
 
   displayAllOrdersCustomer(customer, data) {
-    let allOrders = data.filter(user => user.userID === customer.id);
-    if (allOrders.length === 0) {
+    if (data.length === 0) {
       $('#cost-breakdown_customer').text(`${customer.name} does not have any existing orders.`)
+      $('.customer-orders_table').prop("hidden", true)
     } else {
+      $('#cost-breakdown_customer').text("")
       $('.customer-orders_table').removeAttr('hidden')
-      $('.customer-orders_table').html(allOrders.map(order => {
+      $('.customer-orders_added-rows').html(data.map(order => {
         return `
           <tr>
             <td>${order.date}</td>
@@ -55,15 +58,22 @@ const domUpdates = {
     }
   },
 
-  ordersByDayCustomer(customer, date, data) {
+  totalByDayCustomer(customer, date, data) {
     let allOrders = data.filter(user => user.userID === customer.id && date === date.date);
     domUpdates.displayAllOrdersCustomer(customer, allOrders)
-    let orderTotal = allOrders.reduce((acc, item) => {
+    let totalSpent = allOrders.reduce((acc, item) => {
       acc += item.totalCost
       return Math.round(100 * acc) / 100
     }, 0)
-    $('#total-spent-orders_customer_date')
-      .text(`On ${date}, ${customer.name} spent $${orderTotal} on room service.`)
+    $('.customer-orders_added-rows').after(`
+        <tfoot>
+            <tr>
+                <td colspan="2">TOTAL</td>
+                <td id="total-spent">${totalSpent}</td>
+            </td>
+        </tr>
+      </tfoot>`
+    )
   }
 
 }

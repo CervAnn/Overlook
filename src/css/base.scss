@@ -150,36 +150,15 @@ main {
   }
 
   table {
-    border: 1px solid black;
-    width: 70%;
-    table-layout: fixed;
+    overflow: scroll;
+    max-height: 300px;
     border-collapse: collapse;
     margin: auto;
-    tbody {
-      display: block;
-      width: 100%;
-      overflow: auto;
-      height: 190px;
-    }
-    tr {
-      display: block;
-    }
     th, td {
       border: 1px solid black;
       padding: 5px;
-      width: 144px;
-    }
-    .vacancy {
-      width: 115px;
-      padding: 5px;
-      height: 45px;
+      text-align: center
     }
    }
-  // .scroll-box {
-  //   background-color: white;
-  //   color: black;
-  //   height: 150px;
-  //   width: 90%;
-  //   overflow: auto;
-  // }
+
 }

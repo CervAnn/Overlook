@@ -80,32 +80,32 @@ $(document).ready(function() {
       e.preventDefault()
       let name = $('#create-customer_input').val()
       currentCustomer = hotel.createCustomer(name)
-      domUpdates.displayAllOrdersCustomer(currentCustomer, hotel.roomServicesData)
+      let allOrders = hotel.roomServicesData.filter(user => user.userID === currentCustomer.id)
+      domUpdates.displayAllOrdersCustomer(currentCustomer, allOrders)
       //   domUpdates.ordersByDay(currentCustomer, date, data)
-      $("#cost-breakdown_customer").empty()
       $('#current-customer_name').removeAttr('hidden').text(": " + name)
       $('.orders-tab, .rooms-tab').hide()
       $('.orders-tab_customer, .rooms-tab_customer').removeAttr('hidden')
-      $('input').val("")
+      $('.customer').val("")
     })
 
     $('#search-customers_button').click((e) => {
       e.preventDefault()
       let name = $('#search-customers_input').val()
-      domUpdates.displayAllOrdersCustomer(currentCustomer, hotel.roomServicesData)
-      //   domUpdates.ordersByDay(currentCustomer, date, hotel.roomServicesData)
-      $("#cost-breakdown_customer").empty()
+      let allOrders = hotel.roomServicesData.filter(user => user.userID === currentCustomer.id)
+      domUpdates.displayAllOrdersCustomer(currentCustomer, allOrders)
+    //   domUpdates.totalByDay(currentCustomer, date, hotel.roomServicesData)
       $('#current-customer_name').removeAttr('hidden').text(": " + name)
       $('.orders-tab, .rooms-tab').hide()
       $('.orders-tab_customer, .rooms-tab_customer').removeAttr('hidden')
-      $('input').val("")
+      $('.customer').val("")
     })
 
     $('#room-service-orders_button').click((e) => {
       e.preventDefault()
       let date = $('#order-date_input').val().replace(/-/g, "/")
       let allOrdersByDate = hotel.roomServicesData.filter(item => item.date === date)
-      domUpdates.displayAllOrdersSpecificDate(date, allOrdersByDate)
+      domUpdates.displayAllOrdersSpecificDate(allOrdersByDate)
     })
 
     $('#vacant-rooms_search-button').click((e) => {
@@ -116,6 +116,8 @@ $(document).ready(function() {
       let availableRooms = hotel.roomData.filter(room => !occupiedRoomNumPerDate.includes(room.number))
       domUpdates.searchVacantRooms(date, availableRooms)
     })
+
+    $('')
 
 
     // console.log(addCustomer())
