@@ -1,4 +1,5 @@
 import Customer from './Customer'
+import domUpdates from './domUpdates'
 // import Booking from './Booking'
 // import Order from './Order'
 
@@ -9,6 +10,7 @@ class Hotel {
     this.roomData = roomData;
     this.roomServicesData = roomServicesData;
     this.today = today;
+    this.currentCustomer;
   }
 
   availableRoomsToday() {
@@ -68,33 +70,32 @@ class Hotel {
     return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
   }
 
-  allOrdersToday() {
-    let ordersToday = this.roomServicesData.filter(item => item.date === this.today)
-    if (this.roomServicesData.filter(item => item.date === this.today).length === 0) {
-      return "There are currently no room service orders."
-    } else {
-      return `There are currently ${ordersToday.length} orders for room service: ${ordersToday}`
-    }
+  searchCustomer(item) {
+    return this.customerData.filter(user => (user.name.toUpperCase().includes(item.toUpperCase())))
   }
 
-  searchCustomer(item) {
-    let splitItem = item.toUpperCase();
-    return this.customerData.filter(user => {
-      if (user.name.toUpperCase().includes(splitItem)) {
-        return user
-      } 
-    })
+  findCustomer(item) {
+    return this.customerData.find(user => user.name.toUpperCase() === item.toUpperCase())
   }
 
   createCustomer(name) {
     let id = this.customerData.length + 1
     let newCustomer = new Customer(id, name)
     this.customerData.push(newCustomer)
+    return newCustomer
   }
 
-  displayAllOrdersSpecificDate(date) {
-    return this.roomServicesData.filter(item => item.date === date)
-  }
+  // displayAllOrdersSpecificDate(date) {
+  //   return this.roomServicesData.filter(item => item.date === date)
+  // }
+
+  // totalRoomServiceCustomer(customer) {
+  //   this.currentCustomer = customer;
+  //   let customerOrders = this.roomServiceData.filter(item => item.id === customer.id)
+  //   if (customerOrders.length === 0) {
+  //     return `This customer does not have any existing orders.`
+  //   }
+  // }
 
   createBooking() {
 

@@ -71,7 +71,7 @@ main {
     height: 500px;
     grid-area: main;
   }
-  .rooms-tab {
+  .rooms-tab, .rooms-tab_customer {
     border: 1px solid white;
     width: 100%;
     height: 500px;
@@ -90,6 +90,31 @@ main {
       width: 15%;
       border-radius: 15px;
       font-size: 15px;
+    }
+    form {
+      display: flex;
+      justify-content: space-between;
+      button {
+        height: 40px;
+      }
+    }
+    .filter-room-type_table {
+      margin-top: 40px;
+    }
+
+    .table-container {
+      overflow-y: auto;
+      max-height: 300px;
+    }
+    .summary_article {
+      max-height: 180px;
+      .summary_table {
+        width: 70%;
+      }
+    }
+
+    .summary {
+      width: 70%;
     }
   }
   .customers-tab {
@@ -124,7 +149,7 @@ main {
       }
     }
   }
-  .orders-tab {
+  .orders-tab, .orders-tab_customer {
     border: 1px solid white;
     width: 100%;
     height: 500px;
@@ -150,36 +175,21 @@ main {
   }
 
   table {
-    border: 1px solid black;
-    width: 70%;
-    table-layout: fixed;
     border-collapse: collapse;
     margin: auto;
     tbody {
-      display: block;
-      width: 100%;
-      overflow: auto;
-      height: 190px;
+      overflow-y: scroll;
+      max-height: 300px;
+      border-bottom: 1px solid black;
     }
-    tr {
-      display: block;
+    thead {
+      position: sticky;
     }
     th, td {
       border: 1px solid black;
       padding: 5px;
-      width: 144px;
-    }
-    .vacancy {
-      width: 115px;
-      padding: 5px;
-      height: 45px;
+      text-align: center
     }
    }
-  // .scroll-box {
-  //   background-color: white;
-  //   color: black;
-  //   height: 150px;
-  //   width: 90%;
-  //   overflow: auto;
-  // }
+
 }
