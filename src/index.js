@@ -56,7 +56,7 @@ $(document).ready(function() {
     $('.total-rooms_today').text(`Today, there are ${hotel.availableRoomsToday()} rooms available.`)
     $('.total-revenue_today').text(`The total hotel revenue for today is $${hotel.totalRoomAndOrderRevenueToday()}.`)
     $('.percent-rooms-occupied_today').text(`The hotel is ${hotel.percentOccupied()}% occupied today.`)
-    $('.all-orders_today').text(`${hotel.allOrdersToday()}`)
+    domUpdates.displayAllOrdersToday(today, hotel.roomServicesData)
     $('.most-popular-booking-day').text(`The most popular booking days are ${hotel.mostPopularBookingDate()[0]}, ${hotel.mostPopularBookingDate()[1]}, and ${hotel.mostPopularBookingDate()[2]}.`)
     $('.least-popular-booking-day').text(`The day with the most availability is ${hotel.leastPopularBookingDate()}.`)
 
@@ -81,8 +81,9 @@ $(document).ready(function() {
       let name = $('#create-customer_input').val()
       currentCustomer = hotel.createCustomer(name)
       let allOrders = hotel.roomServicesData.filter(user => user.userID === currentCustomer.id)
+      let allBookings = hotel.bookingsData.filter(user => user.userID === currentCustomer.id)
       domUpdates.displayAllOrdersCustomer(currentCustomer, allOrders)
-      //   domUpdates.ordersByDay(currentCustomer, date, data)
+      domUpdates.displayAllBookingsCustomer(currentCustomer, allBookings, today)
       $('#current-customer_name').removeAttr('hidden').text(": " + name)
       $('.orders-tab, .rooms-tab').hide()
       $('.orders-tab_customer, .rooms-tab_customer').removeAttr('hidden')
@@ -93,8 +94,9 @@ $(document).ready(function() {
       e.preventDefault()
       let name = $('#search-customers_input').val()
       let allOrders = hotel.roomServicesData.filter(user => user.userID === currentCustomer.id)
+      let allBookings = hotel.bookingsData.filter(user => user.userID === currentCustomer.id)
       domUpdates.displayAllOrdersCustomer(currentCustomer, allOrders)
-    //   domUpdates.totalByDay(currentCustomer, date, hotel.roomServicesData)
+      domUpdates.displayAllBookingsCustomer(currentCustomer, allBookings, today)
       $('#current-customer_name').removeAttr('hidden').text(": " + name)
       $('.orders-tab, .rooms-tab').hide()
       $('.orders-tab_customer, .rooms-tab_customer').removeAttr('hidden')
@@ -117,19 +119,72 @@ $(document).ready(function() {
       domUpdates.searchVacantRooms(date, availableRooms)
     })
 
-    $('')
+    $('#customer-orders_button').click((e) => {
+      e.preventDefault()
+      let date = $("#customer-order-date_input").val().replace(/-/g, "/")
+      let allOrders = roomServicesData.filter(user => user.userID === currentCustomer.id && date === user.date);
+      domUpdates.displayAllOrdersCustomer(currentCustomer, allOrders)
+    })
 
+    $("#make-booking_button").click((e) => {
+      e.preventDefault()
+      $("#make-booking_button").prop("hidden", true)
+      $("#filter-booking_search").removeAttr('hidden')
+    })
 
-    // console.log(addCustomer())
+    $("#junior-suite_option").click((e) => {
+      e.preventDefault()
+      let occupiedRoomNumPerDate = hotel.bookingsData.filter(item => item.date === today)
+        .map(room => room.roomNumber)
+      let availableRooms = hotel.roomData
+        .filter(room => !occupiedRoomNumPerDate.includes(room.number) && room.roomType === "junior suite")
+      availableRooms.length !== 0 ? domUpdates.filterByRoomType(availableRooms) : `This room type is not available.`
+    })
 
-    // function addCustomer() {
-    //     let id = customerData.length + 1
-    //     let annie = new Customer(customerData.length + 1, "Annie Seymour")
-    //     hotel.customerData.push(annie)
-    //     return hotel.customerData
-    // }
+    $("#suite_option").click((e) => {
+      e.preventDefault()
+      let occupiedRoomNumPerDate = hotel.bookingsData.filter(item => item.date === today)
+        .map(room => room.roomNumber)
+      let availableRooms = hotel.roomData
+        .filter(room => !occupiedRoomNumPerDate.includes(room.number) && room.roomType === "suite")
+      availableRooms.length !== 0 ? domUpdates.filterByRoomType(availableRooms) : `This room type is not available.`
+    })
 
-    // console.log(addBooking())
+    $("#residential-suite_option").click((e) => {
+      e.preventDefault()
+      let occupiedRoomNumPerDate = hotel.bookingsData.filter(item => item.date === today)
+        .map(room => room.roomNumber)
+      let availableRooms = hotel.roomData
+        .filter(room => !occupiedRoomNumPerDate.includes(room.number) && room.roomType === "residential suite")
+      availableRooms.length !== 0 ? domUpdates.filterByRoomType(availableRooms) : `This room type is not available.`
+    })
+
+    $("#single-room_option").click((e) => {
+      e.preventDefault()
+      let occupiedRoomNumPerDate = hotel.bookingsData.filter(item => item.date === today)
+        .map(room => room.roomNumber)
+      let availableRooms = hotel.roomData
+        .filter(room => !occupiedRoomNumPerDate.includes(room.number) && room.roomType === "single room")
+      availableRooms.length !== 0 ? domUpdates.filterByRoomType(availableRooms) : `This room type is not available.`
+    })
+
+    $("#all-room_options").click((e) => {
+      e.preventDefault()
+      let occupiedRoomNumPerDate = hotel.bookingsData.filter(item => item.date === today)
+        .map(room => room.roomNumber)
+      let availableRooms = hotel.roomData
+        .filter(room => !occupiedRoomNumPerDate.includes(room.number))
+      availableRooms.length !== 0 ? domUpdates.filterByRoomType(availableRooms) : `There are no rooms available.`
+    })
+
+    $(document).on('click', '#book-room_button', function(e) {
+      e.preventDefault()
+      console.log("hey1")
+      let roomNum = e.target.id;
+      let id = currentCustomer.id;
+      let booking = new Booking(id, today, roomNum);
+      hotel.bookingsData.push(booking)
+    })
 
     // function addBooking() {
     //     let booking = new Booking(101, today, 3)

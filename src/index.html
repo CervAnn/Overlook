@@ -44,6 +44,8 @@
         <p class="total-revenue_today">Total Revenue for Today's Date</p>
         <p class="percent-rooms-occupied_today">Percentage of Rooms Occupied for Today's Date</p>
       </section>
+
+
       <section class="rooms-tab">
         <h2>Rooms</h2>
         <h3 class="most-popular-booking-day">Display Most Popular Booking Date</h3>
@@ -53,30 +55,80 @@
           <input type="date" id="vacant-rooms_search" value="2019-07-28" min="2019-07-23" max="2019-10-31" />
           <button form="search-room-availability" id="vacant-rooms_search-button">Submit</button>
         </form>
-        <table class="available-rooms_table" hidden>
-          <thead>
-            <tr class="available-rooms_initial-row">
-                <th class="available-rooms_room-number">Room #</th>
-                <th class="available-rooms_room-type">Type</th>
-                <th class="available-rooms_bidet">Bidet</th>
-                <th class="available-rooms_num-beds"># of Beds</th>
-                <th class="available-rooms_cost">Cost</th>
-              </tr>
-          </thead>
-          <tbody class="available-rooms_added-row"></tbody>
-        </table>
+        <article class="table-container">
+          <table class="available-rooms_table" hidden>
+            <thead>
+              <tr class="available-rooms_initial-row">
+                  <th class="available-rooms_room-number">Room #</th>
+                  <th class="available-rooms_room-type">Type</th>
+                  <th class="available-rooms_bidet">Bidet</th>
+                  <th class="available-rooms_num-beds"># of Beds</th>
+                  <th class="available-rooms_cost">Cost</th>
+                </tr>
+            </thead>
+            <tbody class="available-rooms_added-row"></tbody>
+          </table>
+        </article>
       </section>
+
       <section class="rooms-tab_customer" hidden>
           <h2>Rooms</h2>
-          <p class="all-bookings_current_customer current_customer">All Past & Current Bookings (Specific Customer)</p>
-          <p class="create-booking current_customer specific_day">Create Booking (Specific Customer & Day)</p>
-          <p class="available-rooms_current_customer current_customer">Available Rooms, Filter by Type (Specific Customer
-            &
-            Day)</p>
-          <p class="room-service_current_customer current_customer">Order Room Service, Food Menu (Specific Customer &
+          <h3 class="summary_article" id="all-bookings_customer">All Past & Current Bookings (Specific Customer)</h3>
+          <article class="table-container summary_article" hidden>
+              <table class="customer-booking-summary_table summary_table">
+                <caption id="booking-ledger"></caption>
+                <thead>
+                  <tr class="booking-summary-rooms_initial-row">
+                      <th>Date</th>
+                      <th>Room Number</th>
+                    </tr>
+                </thead>
+                <tbody class="booking-summary_added-row"></tbody>
+              </table>
+            </article>
+          <h3 id="make-booking_customer_today"></h3>
+          <button id="make-booking_button" type="button" hidden>Make Booking</button>
+          <form id="filter-booking_search" hidden>
+              <label for="room">Select Search Filter:</label>
+              <button type="button" form="filter-booking_search" id="junior-suite_option">Junior Suite</button>
+              <button type="button" form="filter-booking_search" id="suite_option">Suite</button>
+              <button type="button" form="filter-booking_search" id="residential-suite_option">Residential Suite</button>
+              <button type="button" form="filter-booking_search" id="single-room_option">Single Room</button>
+              <button type="button" form="filter-booking_search" id="all-room_options">All Available Rooms</button>
+          </form>
+          <article class="table-container filtered_rooms" hidden>
+              <table class="filter-room-type_table filter">
+                <thead>
+                  <tr class="filter-rooms_initial-row">
+                      <th>Room #</th>
+                      <th>Room Type</th>
+                      <th>Bidet</th>
+                      <th>Bed Size</th>
+                      <th># of Beds</th>
+                      <th>Cost</th>
+                      <th>Book</th>
+                  </tr>
+                </thead>
+                <tbody class="filtered-rooms_added-row"></tbody>
+              </table>
+            </article>
+                      <p class="room-service_current_customer current_customer">Order Room Service, Food Menu (Specific Customer &
             Day)
           </p>
+          <!-- <article class="table-container">
+              <table class="customer-booking-summary_table">
+                <thead>
+                  <tr class="booking-summary-rooms_initial-row">
+                      <th>Date</th>
+                      <th>Room Number</th>
+                    </tr>
+                </thead>
+                <tbody class="booking-summary_added-row"></tbody>
+              </table>
+            </article> -->
       </section>
+
+
       <section class="customers-tab">
         <h2>Customers</h2>
         <article id="customer-forms_container">
@@ -101,6 +153,17 @@
         <h2>Orders</h2>
         <h3 class="all-orders_today">Display All Room Service Orders For Today</h3>
         <p class="room-service-orders-all"></p>
+        <table class="display-room-service-orders-all">
+            <thead>
+                <tr>
+                  <th>Customer ID</th>
+                  <th>Date</th>
+                  <th>Food Order</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+          <tbody class="display-current-orders_added-rows"></tbody>
+          </table>
         <p class="all-order_specific_day">All Room Orders for a Specific Day</p>
         <form aria-label="Form that displays all orders based on date" id="room-service-orders_form">
           <label for="orders">Search date:</label>
@@ -118,7 +181,6 @@
                 </tr>
               </thead>
           <tbody class="current-orders_added-rows"></tbody>
-
           </table>
       </section>
 
@@ -126,6 +188,7 @@
           <h2>Orders</h2>
           <p id="cost-breakdown_customer"></p>
           <table class="customer-orders_table" hidden>
+            <caption class="customer-order-ledger"></caption>
               <thead>
                 <tr>
                   <th>Date</th>
@@ -134,10 +197,14 @@
                 </tr>
               </thead>
               <tbody class="customer-orders_added-rows"></tbody>
+              <tfoot>
+                  <tr>
+                      <td colspan="2">TOTAL</td>
+                      <td class="total-spent"></td>
+                  </td>
+              </tr>
+            </tfoot>
           </table>
-          <!-- <p id="total-spent-orders_customer_date">$ for Room Service (Specific
-            Customer
-            & Day)</p> -->
             <form aria-label="Form that displays all orders based on date" id="customer-orders_form">
                 <label for="orders">Search date:</label>
                 <input aria-label="Type in date to display orders" type="date" name="date" id="customer-order-date_input" 

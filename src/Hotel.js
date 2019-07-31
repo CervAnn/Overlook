@@ -70,15 +70,6 @@ class Hotel {
     return Object.keys(bookingDateFrequency).filter(date => bookingDateFrequency[date] === valuesArray[0]) 
   }
 
-  allOrdersToday() {
-    let ordersToday = this.roomServicesData.filter(item => item.date === this.today)
-    if (this.roomServicesData.filter(item => item.date === this.today).length === 0) {
-      return "There are currently no room service orders."
-    } else {
-      return `There are currently ${ordersToday.length} orders for room service: ${ordersToday}`
-    }
-  }
-
   searchCustomer(item) {
     return this.customerData.filter(user => (user.name.toUpperCase().includes(item.toUpperCase())))
   }

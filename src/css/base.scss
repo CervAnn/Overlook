@@ -91,6 +91,31 @@ main {
       border-radius: 15px;
       font-size: 15px;
     }
+    form {
+      display: flex;
+      justify-content: space-between;
+      button {
+        height: 40px;
+      }
+    }
+    .filter-room-type_table {
+      margin-top: 40px;
+    }
+
+    .table-container {
+      overflow-y: auto;
+      max-height: 300px;
+    }
+    .summary_article {
+      max-height: 180px;
+      .summary_table {
+        width: 70%;
+      }
+    }
+
+    .summary {
+      width: 70%;
+    }
   }
   .customers-tab {
     border: 1px solid white;
@@ -150,10 +175,16 @@ main {
   }
 
   table {
-    overflow: scroll;
-    max-height: 300px;
     border-collapse: collapse;
     margin: auto;
+    tbody {
+      overflow-y: scroll;
+      max-height: 300px;
+      border-bottom: 1px solid black;
+    }
+    thead {
+      position: sticky;
+    }
     th, td {
       border: 1px solid black;
       padding: 5px;
